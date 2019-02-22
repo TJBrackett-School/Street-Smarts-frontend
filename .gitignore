@@ -40,7 +40,7 @@ testem.log
 /typings
 environment.ts
 environment.prod.ts
-.vscode
+/.vscode
 
 # System Files
 .DS_Store
