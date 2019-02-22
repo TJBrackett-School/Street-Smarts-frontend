@@ -9,12 +9,12 @@
           <form>
             <div class="form-group">
               <label>Your email</label>
-              <input name="" class="form-control" placeholder="Email" type="email">
+              <input name="" class="form-control" placeholder="Username/Email" type="text" (change)="onUserNameChange($event)">
             </div> <!-- form-group// -->
             <div class="form-group">
               <a class="float-right" href="#">Forgot?</a>
               <label>Your password</label>
-              <input class="form-control" placeholder="******" type="password">
+              <input class="form-control" placeholder="******" type="password" (change)="onUserPasswordChange($event)">
             </div> <!-- form-group// -->
             <div class="form-group">
               <div class="checkbox">
@@ -22,7 +22,7 @@
               </div> <!-- checkbox .// -->
             </div> <!-- form-group// -->
             <div class="form-group">
-              <button type="submit" class="btn btn-primary btn-block"> Login </button>
+              <button type="button" class="btn btn-primary btn-block" (click)="loginUser()"> Login </button>
             </div> <!-- form-group// -->
           </form>
         </article>

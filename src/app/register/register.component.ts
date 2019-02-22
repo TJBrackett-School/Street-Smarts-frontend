@@ -1,14 +1,7 @@
-import {
-  Component,
-  OnInit
-} from '@angular/core';
-import {
-  CognitoUserPool,
-  CognitoUserAttribute
-} from 'amazon-cognito-identity-js/dist/amazon-cognito-identity.min';
-import {
-  environment
-} from '../../environments/environment';
+import { Component, OnInit } from '@angular/core';
+import { CognitoUserPool, CognitoUserAttribute } from 'amazon-cognito-identity-js/dist/amazon-cognito-identity.min';
+import { environment } from '../../environments/environment';
+import { poolData } from 'src/models/poolData';
 
 
 
@@ -51,10 +44,6 @@ export class RegisterComponent implements OnInit {
 
   registerUser() {
     if (this.userPassWord === this.userRepeatPassWord) {
-      const poolData = {
-        UserPoolId: environment.COGNITO_USER_POOL_ID, // Your user pool id here
-        ClientId: environment.COGNITO_CLIENT_ID // Your client id here
-      };
 
       const userPool = new CognitoUserPool(poolData);
 
