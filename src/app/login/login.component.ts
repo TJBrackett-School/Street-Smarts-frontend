@@ -1,3 +1,4 @@
+import { environment } from './../../environments/environment';
 import { Component, OnInit } from '@angular/core';
 import {
   CognitoUserPool,
@@ -5,7 +6,9 @@ import {
   AuthenticationDetails,
   CognitoUser
 } from 'amazon-cognito-identity-js/dist/amazon-cognito-identity.min';
+import { config, CognitoIdentityCredentials } from '../../../node_modules/aws-sdk/dist/aws-sdk.min';
 import { poolData } from 'src/models/poolData';
+import { ASTWithSource } from '@angular/compiler';
 
 
 @Component({
@@ -51,14 +54,15 @@ export class LoginComponent implements OnInit {
       onSuccess: (result) => {
         this.accessToken = result.getAccessToken().getJwtToken();
 
-        this.idToken = result.idToken.jwtToken
-        console.log(cognitoUser.getUsername())
+        this.idToken = result.idToken.jwtToken;
+        console.log(cognitoUser.getUsername());
       },
 
       onFailure: (err) => {
         console.log(err)
       }
-    })
+    });
 
   }
+
 }
