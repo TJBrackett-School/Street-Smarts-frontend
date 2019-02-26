@@ -27,15 +27,15 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
-  onUserNameChange(event: any){
+  onUserNameChange(event: any) {
     this.userName = event.target.value;
   }
 
-  onUserPasswordChange(event: any){
+  onUserPasswordChange(event: any) {
     this.userPassword = event.target.value;
   }
 
-  loginUser(){
+  loginUser() {
 
     const authenticationData = {
       Username : this.userName,
@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
     };
 
     const authenticationDetails = new AuthenticationDetails(authenticationData);
-    const userPool = new CognitoUserPool(poolData)
+    const userPool = new CognitoUserPool(poolData);
     const userData = {
       Username : this.userName,
       Pool : userPool
@@ -59,7 +59,7 @@ export class LoginComponent implements OnInit {
       },
 
       onFailure: (err) => {
-        console.log(err)
+        console.log(err);
       }
     });
 

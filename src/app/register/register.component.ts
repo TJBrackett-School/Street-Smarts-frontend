@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { CognitoUserPool, CognitoUserAttribute } from 'amazon-cognito-identity-js/dist/amazon-cognito-identity.min';
-import { environment } from '../../environments/environment';
 import { poolData } from 'src/models/poolData';
 
 
@@ -70,7 +69,7 @@ export class RegisterComponent implements OnInit {
       });
     } else {
       alert('Repeated password doesnt match');
-      console.log(this.userPassWord + " : " + this.userRepeatPassWord)
+      console.log(this.userPassWord + ' : ' + this.userRepeatPassWord);
     }
   }
 
