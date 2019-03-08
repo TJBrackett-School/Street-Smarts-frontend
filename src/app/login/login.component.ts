@@ -17,7 +17,7 @@ import { ASTWithSource } from '@angular/compiler';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  private userName;
+  private email;
   private userPassword;
   private accessToken;
   private idToken;
@@ -27,8 +27,8 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
-  onUserNameChange(event: any) {
-    this.userName = event.target.value;
+  onEmailChange(event: any) {
+    this.email = event.target.value;
   }
 
   onUserPasswordChange(event: any) {
@@ -38,17 +38,18 @@ export class LoginComponent implements OnInit {
   loginUser() {
 
     const authenticationData = {
-      Username : this.userName,
+      Username : this.email,
       Password : this.userPassword
     };
 
     const authenticationDetails = new AuthenticationDetails(authenticationData);
     const userPool = new CognitoUserPool(poolData);
     const userData = {
-      Username : this.userName,
+      Username : this.email,
       Pool : userPool
     };
 
+    console.log(authenticationDetails);
     const cognitoUser = new CognitoUser(userData);
     cognitoUser.authenticateUser(authenticationDetails, {
       onSuccess: (result) => {
@@ -56,12 +57,30 @@ export class LoginComponent implements OnInit {
 
         this.idToken = result.idToken.jwtToken;
         console.log(cognitoUser.getUsername());
+
+        cognitoUser.getUserAttributes(function (err, res) {
+          if (err) {
+            alert(err);
+            return;
+          }
+          for (let i = 0; i < res.length; i++) {
+            if (res[i].getName() === 'email') {
+              console.log(res[i]);
+              break;
+            }
+            // console.log('attribute ' + res[i].getName() + ' has value ' + res[i].getValue());
+          }
+          // console.log(res);
+
+        });
       },
 
       onFailure: (err) => {
         console.log(err);
       }
     });
+
+
 
   }
 
