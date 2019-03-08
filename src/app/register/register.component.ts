@@ -60,42 +60,50 @@ export class RegisterComponent implements OnInit {
       const attributeList = [];
 
 
-      const emailData = {
+      const data = [
+      {
         Name: 'email',
         Value: this.userEmail
-      };
-
-      const nameData = {
+      },
+      {
         Name: 'name',
         Value: this.userName
-      };
-
-      const addressData = {
+      },
+      {
         Name: 'address',
         Value: this.address
-      };
-
-      const birthdayData = {
+      },
+      {
         Name: 'birthdate',
         Value: this.birthday
-      };
+      }
+    ];
 
+      // const nameData = {
+      //   Name: 'name',
+      //   Value: this.userName
+      // };
 
-      const attributeEmail = new CognitoUserAttribute(emailData);
-      const attributeAddress = new CognitoUserAttribute(addressData);
-      const attributeBirthday = new CognitoUserAttribute(birthdayData);
-      const attributeName = new CognitoUserAttribute(nameData);
+      // const addressData = {
+      //   Name: 'address',
+      //   Value: this.address
+      // };
+
+      // const birthdayData = {
+      //   Name: 'birthdate',
+      //   Value: this.birthday
+      // };
 
       let cognitoUser: CognitoUser;
-      attributeList.push(attributeEmail);
-      attributeList.push(attributeAddress);
-      attributeList.push(attributeBirthday);
-      attributeList.push(attributeName);
+      for (const attribute of data) {
+        const newAttribute = new CognitoUserAttribute(attribute);
+        attributeList.push(newAttribute);
+        }
 
       userPool.signUp(this.userEmail, this.userPassWord, attributeList, null, function (err, result) {
         if (err) {
+          alert(err);
           console.log(err);
-          console.log(result);
           console.log(`${err} in Signup Process`);
           return;
         }
