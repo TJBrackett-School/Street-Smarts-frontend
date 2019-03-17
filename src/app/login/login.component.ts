@@ -54,8 +54,8 @@ export class LoginComponent implements OnInit {
     cognitoUser.authenticateUser(authenticationDetails, {
       onSuccess: (result) => {
         this.accessToken = result.getAccessToken().getJwtToken();
-
         this.idToken = result.idToken.jwtToken;
+
         console.log(cognitoUser.getUsername());
 
         cognitoUser.getUserAttributes(function (err, res) {
@@ -68,14 +68,12 @@ export class LoginComponent implements OnInit {
               console.log(res[i]);
               break;
             }
-            // console.log('attribute ' + res[i].getName() + ' has value ' + res[i].getValue());
           }
-          // console.log(res);
-
         });
       },
 
       onFailure: (err) => {
+        alert(err);
         console.log(err);
       }
     });
