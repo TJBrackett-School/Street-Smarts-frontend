@@ -42,8 +42,8 @@ export class LoginComponent implements OnInit {
       Password : this.userPassword
     };
 
-    const authenticationDetails = new AuthenticationDetails(authenticationData);
-    const userPool = new CognitoUserPool(poolData);
+    const authenticationDetails: AuthenticationDetails = new AuthenticationDetails(authenticationData);
+    const userPool: CognitoUserPool = new CognitoUserPool(poolData);
     const userData = {
       Username : this.email,
       Pool : userPool
@@ -55,6 +55,7 @@ export class LoginComponent implements OnInit {
       onSuccess: (result) => {
         this.accessToken = result.getAccessToken().getJwtToken();
         this.idToken = result.idToken.jwtToken;
+        console.log(this.idToken)
 
         console.log(cognitoUser.getUsername());
 
