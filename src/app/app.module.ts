@@ -11,10 +11,12 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { MapComponent } from './map/map.component';
 import { environment } from '../environments/environment';
+import { ProfileComponent } from './profile/profile.component';
 
 const appRoutes: Routes = [
   { path: '', component: LoginComponent },
-  { path: 'register', component: RegisterComponent }
+  { path: 'register', component: RegisterComponent },
+  { path: 'profile', component: ProfileComponent }
 ];
 
 @NgModule({
@@ -23,6 +25,7 @@ const appRoutes: Routes = [
     LoginComponent,
     RegisterComponent,
     MapComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,
