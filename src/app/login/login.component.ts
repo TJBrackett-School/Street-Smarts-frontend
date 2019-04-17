@@ -55,10 +55,8 @@ export class LoginComponent implements OnInit {
       onSuccess: (result) => {
         this.accessToken = result.getAccessToken().getJwtToken();
         this.idToken = result.idToken.jwtToken;
-        console.log(this.idToken)
-
-        console.log(cognitoUser.getUsername());
-
+        console.log(this.idToken);
+        localStorage.setItem('streetSmartsToken', this.idToken);
         cognitoUser.getUserAttributes(function (err, res) {
           if (err) {
             alert(err);
