@@ -2,8 +2,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AgmCoreModule } from '@agm/core';
-
-
+import { FormsModule } from '@angular/forms';
+import { BooksComponent } from './profile/show-books/books.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -12,6 +12,10 @@ import { RegisterComponent } from './register/register.component';
 import { MapComponent } from './map/map.component';
 import { environment } from '../environments/environment';
 import { ProfileComponent } from './profile/profile.component';
+import { AddBookComponent } from './profile/user-library/add-book/add-book.component';
+import { BookItemComponent } from './profile/user-library/book-item/book-item.component';
+import { BookService } from './profile/user-library/book-services/books.service';
+
 
 const appRoutes: Routes = [
   { path: '', component: LoginComponent },
@@ -26,6 +30,9 @@ const appRoutes: Routes = [
     RegisterComponent,
     MapComponent,
     ProfileComponent,
+    AddBookComponent,
+    BookItemComponent,
+    BookService
   ],
   imports: [
     BrowserModule,
