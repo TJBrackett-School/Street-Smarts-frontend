@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { BookInfo } from '../../models/BookInfo';
 import { Observable } from 'rxjs';
+import { BookInfo } from '../book-models/BookInfo';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -13,6 +13,7 @@ const httpOptions = {
 })
 export class BookService {
   bookUrl: string = 'https://jsonplaceholder.typicode.com/todos';
+
   constructor(private http:HttpClient) { }
 
   getBooks():Observable<BookInfo[]> {

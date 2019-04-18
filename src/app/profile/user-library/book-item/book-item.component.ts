@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { BookInfo } from 'src/app/models/BookInfo';
-import { BookService } from '../../services/book-services/books.service';
+import { BookInfo } from '../book-models/BookInfo';
+import { BookService } from '../book-services/books.service';
 
 @Component({
   selector: 'app-book-item',
