@@ -64,6 +64,9 @@ export class LoginComponent implements OnInit {
         }
       try {
         let res = await Axios.post("https://afu8lhb2z7.execute-api.us-east-1.amazonaws.com/dev/user/register", {},config)
+        await Axios.post('https://afu8lhb2z7.execute-api.us-east-1.amazonaws.com/dev/user/address', JSON.parse(await localStorage.getItem('locationData')), config).then((result)=> {
+          console.log(result)
+        })
         console.log(res)
       } catch (e) {
         console.log(e)

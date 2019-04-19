@@ -3,6 +3,7 @@ import { CognitoUserPool, CognitoUserAttribute } from 'amazon-cognito-identity-j
 import { poolData } from 'src/models/poolData';
 import { CognitoUser } from 'amazon-cognito-identity-js';
 import { environment } from '../../environments/environment';
+import Axios from 'axios';
 
 
 
@@ -17,9 +18,9 @@ export class RegisterComponent implements OnInit {
   private userEmail;
   private userPassWord;
   private userRepeatPassWord;
-  private address;
-  private city;
-  private state;
+  private address: string;
+  private city: string;
+  private state: string;
   private birthday;
   private latitude;
   private longitude;
@@ -41,6 +42,14 @@ export class RegisterComponent implements OnInit {
     this.address = event.target.value;
   }
 
+  onCityChange(event: any) {
+    this.city = event.target.value;
+  }
+
+  onStateChange(event: any) {
+    this.state = event.target.value;
+  }
+
   onBirthdayChange(event: any) {
     this.birthday = event.target.value;
   }
@@ -60,14 +69,31 @@ export class RegisterComponent implements OnInit {
 
 
   registerUser() {
-    console.log(this.gMapsKey);
     if (this.userPassWord === this.userRepeatPassWord) {
 
       const userPool = new CognitoUserPool(poolData);
 
       const attributeList = [];
 
+      const urlAddress: string = this.address.split(' ').join('+') + ',+'; 
+      const urlCity: string = this.city.split(' ').join('+') + ',+';
 
+      const gMapsUrl = this.gMapsApi + urlAddress + urlCity + this.state + this.gMapsKey;
+      Axios.get(gMapsUrl).then(
+        (results) => {
+          const {lat, lng} = results.data.results[0].geometry.location;
+          this.latitude = lat;
+          this.longitude = lng;
+          localStorage.setItem('locationData', JSON.stringify({
+            lat, 
+            lng, 
+            city: this.city,
+            state: this.state,
+            address: this.address
+          }))
+        }
+      )
+      
       const data = [
       {
         Name: 'email',
@@ -118,14 +144,14 @@ export class RegisterComponent implements OnInit {
         attributeList.push(newAttribute);
         }
 
-      userPool.signUp(this.userEmail, this.userPassWord, attributeList, null, function (err, result) {
+      userPool.signUp(this.userEmail, this.userPassWord, attributeList, null, async (err, result) => {
         if (err) {
           alert(err);
           console.log(err);
           console.log(`${err} in Signup Process`);
           return;
         }
-        cognitoUser = result.user;
+       cognitoUser = result.user;
         console.log('user name is ' + cognitoUser.getUsername());
       });
 

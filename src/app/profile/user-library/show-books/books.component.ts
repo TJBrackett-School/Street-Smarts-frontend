@@ -16,10 +16,15 @@ export class BooksComponent implements OnInit {
   constructor(private bookService:BookService, private userService:UserService) { }
 
   ngOnInit() {
-    this.bookService.getBooks().subscribe(books => {
-      this.books = books;
-    });
-  }
+        let config = {
+      headers: {
+        'Authorization': "bearer " + localStorage.getItem('bToken')
+      }
+    }
+    Axios.get('https://afu8lhb2z7.execute-api.us-east-1.amazonaws.com/dev/user/books', config).then((result) => {
+      console.log(result)
+    })
+ }
 
   deleteBook(book:BookInfo) {
     this.books = this.books.filter(b => b.id !== book.id);
