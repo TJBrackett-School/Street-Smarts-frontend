@@ -75,7 +75,7 @@ export class RegisterComponent implements OnInit {
 
       const attributeList = [];
 
-      const urlAddress: string = this.address.split(' ').join('+') + ',+'; 
+      const urlAddress: string = this.address.split(' ').join('+') + ',+';
       const urlCity: string = this.city.split(' ').join('+') + ',+';
 
       const gMapsUrl = this.gMapsApi + urlAddress + urlCity + this.state + this.gMapsKey;
@@ -85,15 +85,15 @@ export class RegisterComponent implements OnInit {
           this.latitude = lat;
           this.longitude = lng;
           localStorage.setItem('locationData', JSON.stringify({
-            lat, 
-            lng, 
+            lat,
+            lng,
             city: this.city,
             state: this.state,
             address: this.address
           }))
         }
       )
-      
+
       const data = [
       {
         Name: 'email',
@@ -146,9 +146,9 @@ export class RegisterComponent implements OnInit {
 
       userPool.signUp(this.userEmail, this.userPassWord, attributeList, null, async (err, result) => {
         if (err) {
-          alert(err);
+          alert(err.message);
           console.log(err);
-          console.log(`${err} in Signup Process`);
+          console.log(`error in Signup Process`);
           return;
         }
        cognitoUser = result.user;

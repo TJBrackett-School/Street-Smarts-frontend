@@ -19,22 +19,22 @@ export class ProfileComponent implements OnInit {
     const book = {
       title: this.title,
       completed: false
-    }
+    };
     this.addBook.emit(book);
   }
 
   async getUserProfile() {
-    let config = {
+    const config = {
       headers: {
-        'Authorization': "bearer " + await localStorage.getItem('bToken')
+        'Authorization': 'bearer ' + await localStorage.getItem('bToken')
       }
-    }
+    };
    try {
-      const {data} = await Axios.get("https://afu8lhb2z7.execute-api.us-east-1.amazonaws.com/dev/user/profile", config)
-      console.log('this is the data', data)
+      const {data} = await Axios.get('https://afu8lhb2z7.execute-api.us-east-1.amazonaws.com/dev/user/profile', config);
+      console.log('this is the data', data);
 
     } catch (e) {
-      console.log(e)
+      console.log(e);
     }
   }
 
