@@ -2,13 +2,12 @@ import { environment } from './../../environments/environment';
 import { Component, OnInit } from '@angular/core';
 import {
   CognitoUserPool,
-  CognitoUserAttribute,
   AuthenticationDetails,
   CognitoUser
 } from 'amazon-cognito-identity-js/dist/amazon-cognito-identity.min';
-import { config, CognitoIdentityCredentials } from '../../../node_modules/aws-sdk/dist/aws-sdk.min';
 import { poolData } from 'src/models/poolData';
-import { ASTWithSource } from '@angular/compiler';
+import { Router } from '@angular/router';
+import Axios from 'axios';
 
 
 @Component({
@@ -22,7 +21,7 @@ export class LoginComponent implements OnInit {
   private accessToken;
   private idToken;
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
   }
@@ -35,29 +34,40 @@ export class LoginComponent implements OnInit {
     this.userPassword = event.target.value;
   }
 
-  loginUser() {
+  async loginUser() {
 
     const authenticationData = {
-      Username : this.email,
-      Password : this.userPassword
+      Username: this.email,
+      Password: this.userPassword
     };
 
     const authenticationDetails: AuthenticationDetails = new AuthenticationDetails(authenticationData);
     const userPool: CognitoUserPool = new CognitoUserPool(poolData);
     const userData = {
-      Username : this.email,
-      Pool : userPool
+      Username: this.email,
+      Pool: userPool
     };
 
     console.log(authenticationDetails);
     const cognitoUser = new CognitoUser(userData);
     cognitoUser.authenticateUser(authenticationDetails, {
-      onSuccess: (result) => {
+      onSuccess: async (result) => {
         this.accessToken = result.getAccessToken().getJwtToken();
         this.idToken = result.idToken.jwtToken;
-        console.log(this.idToken)
-
+        localStorage.setItem('bToken', this.idToken)
         console.log(cognitoUser.getUsername());
+        console.log(this.idToken)
+        let config = {
+          headers: {
+            'Authorization': "bearer " + localStorage.getItem('bToken')
+          }
+        }
+      try {
+        let res = await Axios.post("https://afu8lhb2z7.execute-api.us-east-1.amazonaws.com/dev/user/register", {},config)
+        console.log(res)
+      } catch (e) {
+        console.log(e)
+      }
 
         cognitoUser.getUserAttributes(function (err, res) {
           if (err) {
@@ -71,10 +81,11 @@ export class LoginComponent implements OnInit {
             }
           }
         });
+        this.router.navigate(['/profile']);
       },
 
       onFailure: (err) => {
-        alert(err);
+        alert('authentication error');
         console.log(err);
       }
     });
@@ -82,5 +93,4 @@ export class LoginComponent implements OnInit {
 
 
   }
-
 }
