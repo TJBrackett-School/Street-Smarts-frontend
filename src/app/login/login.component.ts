@@ -59,7 +59,7 @@ export class LoginComponent implements OnInit {
         console.log(this.idToken)
         let config = {
           headers: {
-            'Authorization': "bearer " + localStorage.getItem('bToken')
+            'Authorization': "bearer " + await localStorage.getItem('bToken')
           }
         }
       try {

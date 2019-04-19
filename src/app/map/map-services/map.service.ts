@@ -15,29 +15,28 @@ const httpOptions = {
 })
 
 export class MapService {
-    userUrl: string = 'https://afu8lhb2z7.execute-api.us-east-1.amazonaws.com/dev/user/profile';
+  userUrl: string = 'https://afu8lhb2z7.execute-api.us-east-1.amazonaws.com/dev/user/profile';
 
-    constructor (private http:HttpClient) { }
+  constructor (private http:HttpClient) { }
 
-    async getUserProfile() {
-        let config = {
-          headers: {
-            'Authorization': "bearer " + await localStorage.getItem('bToken')
-          }
-        }
-        let bodyParameters = {
-          key: "value"
-        }
-        try {
-          const response = await Axios.get(this.userUrl, config);
-          console.log(response)
-    
-        } catch (e) {
-          console.log(e)
+  async getUserProfile() {
+      let config = {
+        headers: {
+          'Authorization': "bearer " + await localStorage.getItem('bToken')
         }
       }
-      // getBooks():Observable<MapInfo[]> {
-      //   return this.http.get<MapInfo[]>(this.userUrl);
-      // }
-
+      let bodyParameters = {
+        key: "value"
+      }
+      try {
+        const response = await Axios.get(this.userUrl, config);
+        console.log(response)
+    
+      } catch (e) {
+        console.log(e)
+      }
+    }
+  // getBooks():Observable<MapInfo[]> {
+  //   return this.http.get<MapInfo[]>(this.userUrl);
+  // }
 }

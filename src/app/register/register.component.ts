@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CognitoUserPool, CognitoUserAttribute } from 'amazon-cognito-identity-js/dist/amazon-cognito-identity.min';
 import { poolData } from 'src/models/poolData';
 import { CognitoUser } from 'amazon-cognito-identity-js';
+import { environment } from '../../environments/environment';
 
 
 
@@ -17,8 +18,14 @@ export class RegisterComponent implements OnInit {
   private userPassWord;
   private userRepeatPassWord;
   private address;
+  private city;
+  private state;
   private birthday;
+  private latitude;
+  private longitude;
 
+  private gMapsApi: string = 'https://maps.googleapis.com/maps/api/geocode/json?address=';
+  private gMapsKey: string = '&key=' + environment.GOOGLE_MAPS_API_KEY;
 
   constructor() {}
 
@@ -53,6 +60,7 @@ export class RegisterComponent implements OnInit {
 
 
   registerUser() {
+    console.log(this.gMapsKey);
     if (this.userPassWord === this.userRepeatPassWord) {
 
       const userPool = new CognitoUserPool(poolData);
@@ -87,6 +95,16 @@ export class RegisterComponent implements OnInit {
       // const addressData = {
       //   Name: 'address',
       //   Value: this.address
+      // };
+
+      // const cityData = {
+      //   Name: 'city',
+      //   Value: this.city
+      // };
+
+      // const stateData = {
+      //   Name: 'state',
+      //   Value: this.state
       // };
 
       // const birthdayData = {
