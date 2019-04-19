@@ -1,0 +1,8 @@
+<button (click)="getUserProfile()">Test</button>
+<app-add-book (addBook)="addBook($event)" (bookSearch)="bookSearch($event)"></app-add-book>
+<app-book-item 
+*ngFor="let book of books" 
+[book]="book"
+(deleteBook)="deleteBook($event)"
+>
+</app-book-item>
