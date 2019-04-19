@@ -1,6 +1,6 @@
 export class BookInfo {
-    userId:number;
-    id:number;
+    userId:string;
+    id:string;
     title:string;
-    complete:boolean;
+    complete:string;
 }

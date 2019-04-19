@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CognitoUserPool, CognitoUserAttribute } from 'amazon-cognito-identity-js/dist/amazon-cognito-identity.min';
 import { poolData } from 'src/models/poolData';
 import { CognitoUser } from 'amazon-cognito-identity-js';
+import { environment } from '../../environments/environment';
+import Axios from 'axios';
 
 
 
@@ -16,9 +18,15 @@ export class RegisterComponent implements OnInit {
   private userEmail;
   private userPassWord;
   private userRepeatPassWord;
-  private address;
+  private address: string;
+  private city: string;
+  private state: string;
   private birthday;
+  private latitude;
+  private longitude;
 
+  private gMapsApi: string = 'https://maps.googleapis.com/maps/api/geocode/json?address=';
+  private gMapsKey: string = '&key=' + environment.GOOGLE_MAPS_API_KEY;
 
   constructor() {}
 
@@ -32,6 +40,14 @@ export class RegisterComponent implements OnInit {
 
   onAddressChange(event: any) {
     this.address = event.target.value;
+  }
+
+  onCityChange(event: any) {
+    this.city = event.target.value;
+  }
+
+  onStateChange(event: any) {
+    this.state = event.target.value;
   }
 
   onBirthdayChange(event: any) {
@@ -59,6 +75,24 @@ export class RegisterComponent implements OnInit {
 
       const attributeList = [];
 
+      const urlAddress: string = this.address.split(' ').join('+') + ',+';
+      const urlCity: string = this.city.split(' ').join('+') + ',+';
+
+      const gMapsUrl = this.gMapsApi + urlAddress + urlCity + this.state + this.gMapsKey;
+      Axios.get(gMapsUrl).then(
+        (results) => {
+          const {lat, lng} = results.data.results[0].geometry.location;
+          this.latitude = lat;
+          this.longitude = lng;
+          localStorage.setItem('locationData', JSON.stringify({
+            lat,
+            lng,
+            city: this.city,
+            state: this.state,
+            address: this.address
+          }))
+        }
+      )
 
       const data = [
       {
@@ -89,6 +123,16 @@ export class RegisterComponent implements OnInit {
       //   Value: this.address
       // };
 
+      // const cityData = {
+      //   Name: 'city',
+      //   Value: this.city
+      // };
+
+      // const stateData = {
+      //   Name: 'state',
+      //   Value: this.state
+      // };
+
       // const birthdayData = {
       //   Name: 'birthdate',
       //   Value: this.birthday
@@ -100,14 +144,14 @@ export class RegisterComponent implements OnInit {
         attributeList.push(newAttribute);
         }
 
-      userPool.signUp(this.userEmail, this.userPassWord, attributeList, null, function (err, result) {
+      userPool.signUp(this.userEmail, this.userPassWord, attributeList, null, async (err, result) => {
         if (err) {
-          alert(err);
+          alert(err.message);
           console.log(err);
-          console.log(`${err} in Signup Process`);
+          console.log(`error in Signup Process`);
           return;
         }
-        cognitoUser = result.user;
+       cognitoUser = result.user;
         console.log('user name is ' + cognitoUser.getUsername());
       });
 

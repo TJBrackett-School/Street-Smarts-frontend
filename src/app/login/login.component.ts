@@ -54,19 +54,24 @@ export class LoginComponent implements OnInit {
       onSuccess: async (result) => {
         this.accessToken = result.getAccessToken().getJwtToken();
         this.idToken = result.idToken.jwtToken;
-        localStorage.setItem('bToken', this.idToken)
+       localStorage.setItem('bToken', this.idToken);
         console.log(cognitoUser.getUsername());
-        console.log(this.idToken)
-        let config = {
+        console.log(this.idToken);
+        const config = {
           headers: {
-            'Authorization': "bearer " + localStorage.getItem('bToken')
+            'Authorization': 'bearer ' + await localStorage.getItem('bToken')
           }
-        }
+        };
       try {
-        let res = await Axios.post("https://afu8lhb2z7.execute-api.us-east-1.amazonaws.com/dev/user/register", {},config)
-        console.log(res)
+        const res = await Axios.post('https://afu8lhb2z7.execute-api.us-east-1.amazonaws.com/dev/user/register', {}, config);
+        await Axios.post('https://afu8lhb2z7.execute-api.us-east-1.amazonaws.com/dev/user/address',
+          JSON.parse(await localStorage.getItem('locationData')), config).then(
+          (result) => {
+            console.log(result);
+          });
+        console.log(res);
       } catch (e) {
-        console.log(e)
+        console.log(e);
       }
 
         cognitoUser.getUserAttributes(function (err, res) {
