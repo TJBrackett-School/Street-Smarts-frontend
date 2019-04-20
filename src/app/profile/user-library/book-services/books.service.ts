@@ -31,6 +31,10 @@ export class BookService {
     return result
   }
 
+  //Search our API library for a book
+  async searchLibrary() {
+    //TODO
+  }
   //Pull all books in user's library
   async getUserLibrary() {
     const result = await Axios.get(this.userBookUrl, config)

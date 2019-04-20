@@ -1,4 +1,5 @@
 export class BookInfo {
+    id:string
     title:string
     authorName:string
     coverLinkLarge:string
