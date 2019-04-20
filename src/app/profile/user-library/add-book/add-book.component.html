@@ -1,4 +1,4 @@
 <form class="form" (ngSubmit)="onSubmit()">
-  <input type="text" name="title" [(ngModel)]="title" placeholder="Add Book..." (change)="bookSearch($event)">
+  <input type="text" name="title" [(ngModel)]="title" placeholder="Add Book..." (change)="onSearchChange($event)">
   <input type="submit" value="Submit" class="btn">
 </form>
