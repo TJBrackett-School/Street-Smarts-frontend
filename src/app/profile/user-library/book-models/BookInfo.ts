@@ -1,6 +1,8 @@
 export class BookInfo {
-    userId:string;
-    id:string;
-    title:string;
-    complete:string;
+    id:string
+    title:string
+    authorName:string
+    coverLinkLarge:string
+    coverLinkSmall:string
+    coverlLinkMedium:string
 }

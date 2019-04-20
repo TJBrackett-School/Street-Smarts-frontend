@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { BookInfo } from '../book-models/BookInfo';
 import { UserInfo } from '../../user-models/UserInfo'
 import { BookService } from '../book-services/books.service';
 import { UserService } from '../../user-services/user.service';
 import Axios from 'axios';
+import { config } from 'rxjs';
 
 @Component({
   selector: 'app-books',
@@ -11,30 +12,36 @@ import Axios from 'axios';
   styleUrls: ['./books.component.css']
 })
 export class BooksComponent implements OnInit {
-  books:BookInfo[];
-
-  constructor(private bookService:BookService, private userService:UserService) { }
-
-  ngOnInit() {
-        let config = {
+  @Output() addBook: EventEmitter<any> = new EventEmitter();
+  public books:BookInfo[];
+  private config = {
       headers: {
         'Authorization': "bearer " + localStorage.getItem('bToken')
       }
     }
-    Axios.get('https://afu8lhb2z7.execute-api.us-east-1.amazonaws.com/dev/user/books', config).then((result) => {
-      console.log(result)
-    })
- }
+  constructor(private bookService:BookService, private userService:UserService) { }
 
-  deleteBook(book:BookInfo) {
-    this.books = this.books.filter(b => b.id !== book.id);
-    this.bookService.deleteBook(book).subscribe();
+  ngOnInit() {
+    let config = {
+      headers: {
+        'Authorization': "bearer " + localStorage.getItem('bToken')
+      }
+    }
+    Axios.get('https://afu8lhb2z7.execute-api.us-east-1.amazonaws.com/dev/user/book', this.config).then(books => {
+      if (books.data.title) {
+        this.books = books.data;
+      }
+    });
   }
 
-  addBook(book:BookInfo) {
-    this.bookService.addBook(book).subscribe(book => {
-      this.books.push(book);
-    });
+  // deleteBook(book:BookInfo) {
+  //   this.books = this.books.filter(b => b.id !== book.id);
+  //   this.bookService.deleteBook(book).subscribe();
+  // }
+  async searchBook(book: BookInfo) {
+    console.log(book)
+    const res = await Axios.post('https://afu8lhb2z7.execute-api.us-east-1.amazonaws.com/dev/user/book', book, this.config)
+    console.log(res)
   }
     async getUserProfile() {
     let config = {

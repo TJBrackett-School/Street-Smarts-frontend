@@ -9,8 +9,8 @@ export class MapComponent implements OnInit {
 
   public origin: any;
   public destination: any;
-  public lat = 43.879078;
-  public lng = -103.4615581;
+  public lat;
+  public lng;
   public selectedMarker;
   public markers = [
     // These are all just random coordinates from https://www.random.org/geographic-coordinates/
@@ -25,10 +25,14 @@ export class MapComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    const locationData = JSON.parse(localStorage.getItem('locationData'))
+    this.lat = locationData.lat
+    this.lng = locationData.lng
+    this.addMarker(this.lat, this.lng)
   }
   
     addMarker(lat: number, lng: number) {
-      this.markers.push({ lat, lng, alpha: 0.4 });
+      this.markers.push({ lat, lng, alpha: 1});
     }
     // Related to the rectangle property in the html
     // max(coordType: 'lat' | 'lng'): number {

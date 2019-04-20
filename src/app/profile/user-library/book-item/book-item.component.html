@@ -1,7 +1,11 @@
 <div>
-  <p>
-    {{ book.id }} |
+  <div>
+    {{ book.coverLinkLarge }}
+  </div>
+  <div>
     {{ book.title }}
+  </div>
+  <div>
     <button (click)="onDelete(book)" class="del">X</button>
-  </p>
+  </div>
 </div>

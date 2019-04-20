@@ -1,8 +1,18 @@
-<button (click)="(getUserProfile())">Test</button>
-<app-add-book (addBook)="addBook($event)"></app-add-book>
-<app-book-item 
-*ngFor="let book of books" 
-[book]="book"
-(deleteBook)="deleteBook($event)"
->
-</app-book-item>
+<form class="form" (ngSubmit)="onSubmit()">
+    <div>
+    <input type="text" name="title" [(ngModel)]="title" placeholder="Add Book..." (change)="onSearchChange($event)">
+    <input type="text" name="author" [(ngModel)]="author" placeholder="Add Author..." (change)="onSearchChange($event)">
+    </div>
+    <p>
+      --- or ---
+    </p>
+    <div>
+        <input type="text" name="isbn" [(ngModel)]="isbn" placeholder="Add ISBN..." (change)="onSearchChange($event)">
+    </div>
+    <div>
+    <input type="submit" value="Submit" class="btn">
+    </div>
+    <div>
+        <!--for adding the book items-->
+    </div>
+  </form>
