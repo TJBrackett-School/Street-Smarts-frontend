@@ -63,8 +63,8 @@ export class LoginComponent implements OnInit {
           }
         };
       try {
-        const res = await Axios.post('https://afu8lhb2z7.execute-api.us-east-1.amazonaws.com/dev/user/register', {}, config);
-        await Axios.post('https://afu8lhb2z7.execute-api.us-east-1.amazonaws.com/dev/user/address',
+        const res = await Axios.post('user/register', {});
+        await Axios.post('user/address',
           JSON.parse(await localStorage.getItem('locationData')), config).then(
           (result) => {
             console.log(result);

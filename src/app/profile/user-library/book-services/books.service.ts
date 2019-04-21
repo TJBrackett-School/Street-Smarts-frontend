@@ -1,43 +1,47 @@
-import { Injectable} from '@angular/core';
-import { BookInfo } from '../book-models/BookInfo';
+import {
+  Injectable
+} from '@angular/core';
+import {
+  BookInfo,
+  BookSearch
+} from '../book-models/BookInfo';
 import Axios from 'axios'
-
-const config = {
-  headers: {
-    'Authorization': "bearer " + localStorage.getItem('bToken')
-  }
-}
 
 @Injectable({
   providedIn: 'root'
 })
 export class BookService {
   //OpenLibrary API
-  public bookSearchUrl: string = 'https://afu8lhb2z7.execute-api.us-east-1.amazonaws.com/dev/book/search/';
+  public openLibraryUrl: string = 'book/searchapi';
+  public bookSearchUrl: string = 'book/search';
   //User's library API
-  public userBookUrl: string = 'https://afu8lhb2z7.execute-api.us-east-1.amazonaws.com/dev/user/book';
+  public userBookUrl: string = 'user/book';
 
   constructor() {}
 
   //Searches OpenLibrary for a book
-  async searchOL() {
-    const result = await Axios.get(this.bookSearchUrl, config)
+  async searchOL(book: BookSearch) {
+    const result = await Axios.post(this.openLibraryUrl, {
+      title: book.title,
+      author: book.author
+    })
     return result
   }
 
   //Add book to user's library
-  async addBookToLibrary(book: BookInfo) {
-    const result = await Axios.post(this.userBookUrl, book, config)
+  async addBookToLibrary(book: any) {
+    const result = await Axios.post(this.userBookUrl, book)
     return result
   }
 
   //Search our API library for a book
   async searchLibrary() {
-    //TODO
+    const result = await Axios.post(this.userBookUrl)
+    return result
   }
   //Pull all books in user's library
   async getUserLibrary() {
-    const result = await Axios.get(this.userBookUrl, config)
+    const result = await Axios.get(this.userBookUrl)
     return result
   }
 

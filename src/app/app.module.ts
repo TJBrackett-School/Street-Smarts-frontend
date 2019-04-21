@@ -22,14 +22,13 @@ import { UserService } from './profile/user-services/user.service';
 import { MapService } from './map/map-services/map.service';
 //Misc
 import { environment } from '../environments/environment';
+import { FindBookComponent } from './map/find-book/find-book.component';
+import { HeaderComponent } from './header/header.component';
+import Axios from 'axios';
 
-const appRoutes: Routes = [
-  { path: '', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
-  { path: 'profile', component: BooksComponent }, //Change back to ProfileComponent eventually
-  { path: 'map', component: MapComponent }
-];
-
+Axios.defaults.baseURL = 'https://afu8lhb2z7.execute-api.us-east-1.amazonaws.com/dev/';
+Axios.defaults.headers.common['Authorization'] = "bearer " + localStorage.getItem('bToken');
+Axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,7 +38,9 @@ const appRoutes: Routes = [
     ProfileComponent,
     AddBookComponent,
     BookItemComponent,
-    BooksComponent
+    BooksComponent,
+    FindBookComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +48,6 @@ const appRoutes: Routes = [
     HttpClientModule,
     FormsModule,
     NgbModule.forRoot(),
-    RouterModule.forRoot(appRoutes),
     AgmCoreModule.forRoot({
       apiKey: environment.GOOGLE_MAPS_API_KEY
     })

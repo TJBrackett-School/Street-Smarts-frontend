@@ -14,13 +14,12 @@ export class BookItemComponent implements OnInit {
   constructor(private bookService:BookService) { }
 
   ngOnInit() {
+    
   }
 
   onDelete(book) {
     this.deleteBook.emit(book);
   }
-  //calls both addBookToLibrary(searchOL) and searchLibrary seperately
-  //addBookToLibrary(searchOL) called in profile page to find the book in OL and then add it to user's library
-  //searchLibrary called in map page to look for a book in our API
-  //map search gets all book ids related to the search and passes them into a query with other nearby user's ids
+  //bookItem is going to only display the book details/cover and provide a delete button
+  //addBook and findBook are going to retrieve the data that is shown on bookItems
 }

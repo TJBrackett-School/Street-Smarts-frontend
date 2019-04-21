@@ -1,15 +1,15 @@
-<form class="form" (ngSubmit)="onSubmit()">
+<form class="form" (ngSubmit)="getBook()">
   <div>
-  <input type="text" name="title" [(ngModel)]="title" placeholder="Add Book..." (change)="onSearchChange($event)">
-  <input type="text" name="author" [(ngModel)]="author" placeholder="Add Author..." (change)="onSearchChange($event)">
+    <input type="text" name="title" [(ngModel)]="book.title" placeholder="Add Book..." (input)=getBook()>
+    <input type="text" name="author" [(ngModel)]="book.author" placeholder="Add Author...">
   </div>
   <p>
     --- or ---
   </p>
   <div>
-      <input type="text" name="isbn" [(ngModel)]="isbn" placeholder="Add ISBN..." (change)="onSearchChange($event)">
+    <input type="text" name="isbn" [(ngModel)]="book.isbn" placeholder="Add ISBN...">
   </div>
   <div>
-  <input type="submit" value="Submit" class="btn">
+    <input type="submit" value="Submit" class="btn" (click)="addBook()">
   </div>
 </form>

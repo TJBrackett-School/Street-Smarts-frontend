@@ -1,24 +1,5 @@
 <div>
-    <form class="form">
-        <input list="searchOptions" type="text" name="searchOptions">
-        <input list="distance" type="text" name="distance">
-        <input type="text" name="userSearch">
-        <input type="submit" value="Search" class="btn">
-
-        <datalist id="searchOptions">
-            <option value="title">
-            <option value="author">
-        </datalist>
-        <datalist id="distance">
-            <option value="1">
-            <option value="5">
-            <option value="10">
-            <option value="15">
-            <option value="20">
-            <option value="25">
-        </datalist>
-
-    </form>
+<app-find-book></app-find-book>
 <agm-map 
     [latitude]="lat"
     [longitude]="lng" 
