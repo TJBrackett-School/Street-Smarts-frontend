@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
 import { UserInfo } from '../user-models/UserInfo';
 import Axios from 'axios';
 
@@ -14,30 +13,29 @@ const httpOptions = {
 })
 
 export class UserService {
-    userUrl: string = 'https://afu8lhb2z7.execute-api.us-east-1.amazonaws.com/dev/user/profile';
+  // GET
+  // /user/profile
+  //   - return Signed it user
+  // /user/profile/{userID}
+  //   - returns user by userid
+  public userProfileUrl: string = 'user/profile';
+  // POST
+  // /user/checkout/{userID}
+  //   - send {book}
+  //   - get back message saying it completed
+  public userCheckoutUrl: string = 'user/checkout';
 
     constructor (private http:HttpClient) { }
 
-    async getUserProfile() {
-        let config = {
-          headers: {
-            'Authorization': "bearer " + await localStorage.getItem('bToken')
-          }
-        }
-        let bodyParameters = {
-          key: "value"
-        }
-        try {
-          const response = await Axios.get(this.userUrl, config);
-          console.log(response)
+  async getUserByID (userID: number) {
+
+  }
+  //Check out a user's book to another user.
+  async checkoutBook() {
     
-        } catch (e) {
-          console.log(e)
-        }
-      }
-
-    getUser():Observable<UserInfo[]> {
-        return this.http.get<UserInfo[]>(this.userUrl);
-    }   
-
+  }
+  //Return a book that was checked out
+  async returnCheckoutBook() {
+    //TODO
+  }
 }

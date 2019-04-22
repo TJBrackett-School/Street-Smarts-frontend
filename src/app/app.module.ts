@@ -7,7 +7,6 @@ import { AddBookComponent } from './profile/user-library/add-book/add-book.compo
 import { BookItemComponent } from './profile/user-library/book-item/book-item.component';
 import { BooksComponent } from './profile/user-library/show-books/books.component';
 //Modules
-import { Routes, RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AgmCoreModule } from '@agm/core';
@@ -16,15 +15,16 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
+import { FindBookComponent } from './map/find-book/find-book.component';
+import { HeaderComponent } from './header/header.component';
 //Services
 import { BookService } from './profile/user-library/book-services/books.service';
 import { UserService } from './profile/user-services/user.service';
 import { MapService } from './map/map-services/map.service';
 //Misc
 import { environment } from '../environments/environment';
-import { FindBookComponent } from './map/find-book/find-book.component';
-import { HeaderComponent } from './header/header.component';
 import Axios from 'axios';
+import { TestBookItemComponent } from './test-book-item/test-book-item.component';
 
 Axios.defaults.baseURL = 'https://afu8lhb2z7.execute-api.us-east-1.amazonaws.com/dev/';
 Axios.defaults.headers.common['Authorization'] = "bearer " + localStorage.getItem('bToken');
@@ -40,7 +40,8 @@ Axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded
     BookItemComponent,
     BooksComponent,
     FindBookComponent,
-    HeaderComponent
+    HeaderComponent,
+    TestBookItemComponent
   ],
   imports: [
     BrowserModule,
@@ -51,6 +52,9 @@ Axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded
     AgmCoreModule.forRoot({
       apiKey: environment.GOOGLE_MAPS_API_KEY
     })
+  ],
+  exports: [
+    BookItemComponent
   ],
   providers: [
     BookService,

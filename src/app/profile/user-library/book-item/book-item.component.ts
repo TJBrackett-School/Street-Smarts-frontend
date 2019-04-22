@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { BookInfo } from '../book-models/BookInfo';
 import { BookService } from '../book-services/books.service';
-import { userBooks } from '../add-book/add-book.component';
 
 @Component({
   selector: 'app-book-item',
@@ -11,12 +10,11 @@ import { userBooks } from '../add-book/add-book.component';
 export class BookItemComponent implements OnInit {
   @Input() book: BookInfo;
   @Output() deleteBook: EventEmitter<BookInfo> = new EventEmitter();
-  private library: BookInfo[] = userBooks;
 
   constructor(private bookService:BookService) { }
 
   ngOnInit() {
-    console.log(this.library)
+    
   }
 
   onDelete(book) {
