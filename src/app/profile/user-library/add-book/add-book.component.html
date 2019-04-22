@@ -1,15 +1,9 @@
-<form class="form" (ngSubmit)="getBook()">
+<form class="form" (ngSubmit)="addBook()">
   <div>
     <input type="text" name="title" [(ngModel)]="book.title" placeholder="Add Book..." (input)=getBook()>
     <input type="text" name="author" [(ngModel)]="book.author" placeholder="Add Author...">
   </div>
-  <p>
-    --- or ---
-  </p>
   <div>
-    <input type="text" name="isbn" [(ngModel)]="book.isbn" placeholder="Add ISBN...">
-  </div>
-  <div>
-    <input type="submit" value="Submit" class="btn" (click)="addBook()">
+    <input type="submit" value="Submit" class="btn">
   </div>
 </form>

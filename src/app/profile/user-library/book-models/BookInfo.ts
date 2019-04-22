@@ -7,6 +7,6 @@ export class BookInfo {
 }
 
 export class BookSearch {
-    title: string;
-    author: string;
+    title?: string;
+    author?: string;
 }

@@ -13,9 +13,12 @@ import Axios from 'axios'
 export class BookService {
   //OpenLibrary API
   public openLibraryUrl: string = 'book/searchapi';
+  //Search all books in our API
   public bookSearchUrl: string = 'book/search';
   //User's library API
   public userBookUrl: string = 'user/book';
+  //Map search
+  public mapUrl: string = 'user/surrounding';
 
   constructor() {}
 
@@ -29,14 +32,14 @@ export class BookService {
   }
 
   //Add book to user's library
-  async addBookToLibrary(book: any) {
+  async addBookToLibrary(book: BookInfo) {
     const result = await Axios.post(this.userBookUrl, book)
     return result
   }
 
   //Search our API library for a book
   async searchLibrary() {
-    const result = await Axios.post(this.userBookUrl)
+    const result = await Axios.post(this.bookSearchUrl)
     return result
   }
   //Pull all books in user's library
@@ -61,6 +64,4 @@ export class BookService {
   async returnCheckoutBook() {
     //TODO
   }
-
-
 }
