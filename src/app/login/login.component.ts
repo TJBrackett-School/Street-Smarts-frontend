@@ -75,12 +75,10 @@ export class LoginComponent implements OnInit {
             return;
           }
           for (let i = 0; i < res.length; i++) {
-            if (res[i].getName() === 'email') {
-              console.log(res[i]);
-              break;
+              console.log(res[i].getName(), res[i].getValue());
             }
           }
-        });
+        );
         this.router.navigate(['/library']);
       } catch(e){
         console.log(e)

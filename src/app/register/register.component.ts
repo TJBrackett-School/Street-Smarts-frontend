@@ -29,7 +29,7 @@ export class RegisterComponent implements OnInit {
   private gMapsApi = 'https://maps.googleapis.com/maps/api/geocode/json?address=';
   private gMapsKey: string = '&key=' + environment.GOOGLE_MAPS_API_KEY;
 
-  constructor(private UserService) {}
+  constructor(private UserService:UserService) {}
 
 
   ngOnInit() {}
@@ -91,7 +91,8 @@ export class RegisterComponent implements OnInit {
         state: this.state,
         address: this.address
       };
-      await this.UserService.addUserAddress(locationObject)
+      localStorage.setItem('locationData', JSON.stringify(locationObject))
+      // await this.UserService.addUserAddress(locationObject);
 
       const data = [
       {
