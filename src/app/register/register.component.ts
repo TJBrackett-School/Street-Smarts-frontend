@@ -91,7 +91,7 @@ export class RegisterComponent implements OnInit {
         state: this.state,
         address: this.address
       };
-      localStorage.setItem('locationData', JSON.stringify(locationObject))
+      localStorage.setItem('locationData', JSON.stringify(locationObject));
       // await this.UserService.addUserAddress(locationObject);
 
       const data = [
