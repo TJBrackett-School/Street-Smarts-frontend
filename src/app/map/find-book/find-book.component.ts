@@ -14,51 +14,54 @@ export class FindBookComponent implements OnInit {
   book: BookSearch = {
     title: '',
     authorName: ''
-  }
+  };
   radius: number;
-  userBooks: BookSearch[]
-  searchOptions: string
-  userSearch: string
+  userBooks: BookSearch[];
+  searchOptions: string;
+  userSearch: string;
 
   constructor(
-    private bookService:BookService,
-    private mapService:MapService,
-    private userService:UserService
+    private bookService: BookService,
+    private mapService: MapService,
+    private userService: UserService
   ) { }
 
   ngOnInit() {
   }
-  //Returns book info, use id to find users
+  // Returns book info, use id to find users
   async getBook() {
-    if (this.searchOptions == "title") {
-      this.book.title = this.userSearch
-      this.book.authorName = ''
+    if (this.searchOptions === 'title') {
+      this.book.title = this.userSearch;
+      this.book.authorName = '';
     } else {
-      this.book.authorName = this.userSearch
-      this.book.title = ''
+      this.book.authorName = this.userSearch;
+      this.book.title = '';
     }
-    console.log(this.book)
-    let books = await this.bookService.searchLibrary(this.book);
-    console.log(books)
-    return books
+    console.log(this.book);
+    const books = await this.bookService.searchLibrary(this.book);
+    console.log(books);
+    return books;
   }
 
   async getUsers() {
-    let userIDs = await this.getLocations()
-    console.log(userIDs)
-    let results = await this.mapService.getUserLocation(userIDs)
-    console.log(results)
+    let userIDs = await this.getLocations();
+    console.log('UserIDs', userIDs);
+    const results = [];
+    userIDs.forEach(async user => {
+      results.push(await this.mapService.getUserLocation(user.ownedby));
+    });
+    console.log('results', results);
 
   }
 
   async getLocations() {
-    let bookResults = await this.getBook()
-    this.userBooks = bookResults.data
-    let users = await this.mapService.searchMapForBook(
-      this.radius, 
+    const bookResults = await this.getBook();
+    this.userBooks = bookResults.data;
+    const users = await this.mapService.searchMapForBook(
+      this.radius,
       this.userBooks
-    )
-    console.log(users)
-    return users.data.users[0]
+    );
+    console.log(users);
+    return users.data.users[0];
   }
 }

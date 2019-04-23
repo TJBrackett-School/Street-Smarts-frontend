@@ -12,28 +12,29 @@ export class MapService {
   //   - return signed in users location
   // /user/location/{userID}
   //   - returns user location by user ID
-  public userLocationUrl: string = 'user/location';
+  public userLocationUrl = 'user/location';
   // Map search for users nearby that have a certain book
   // POST
   // /book/searchSB
   // - send {radius: num, bookData: {book}}
   // - getback {users: [list of users]}
-  public searchUrl: string = 'book/searchSB';
+  public searchUrl = 'book/searchSB';
 
   constructor () { }
 
-  
-  //Find user's nearby that have book
+
+  // Find user's nearby that have book
   async searchMapForBook(radius: number, book: BookSearch[]) {
     const results = await Axios.post(this.searchUrl, {
       radius: radius,
       bookData: {book}
-    })
-    return results
+    });
+    return results;
   }
-  async getUserLocation(userID: number) {
-    const results = await Axios.get(this.userLocationUrl + `/${userID}`)
-    return results
+  async getUserLocation(userID) {
+    console.log(userID);
+    const results = await Axios.get(`${this.userLocationUrl}/${userID}`);
+    return results;
   }
 
 
