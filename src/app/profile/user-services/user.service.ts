@@ -6,35 +6,75 @@ const httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
     })
-}
+};
 @Injectable({
     providedIn: 'root'
 })
 
 export class UserService {
+    userUrl = 'https://afu8lhb2z7.execute-api.us-east-1.amazonaws.com/dev/user/profile';
+    addressUrl = 'https://afu8lhb2z7.execute-api.us-east-1.amazonaws.com/dev/user/address';
+    locationUrl = 'https://afu8lhb2z7.execute-api.us-east-1.amazonaws.com/dev/user/location';
+
+    constructor (private http: HttpClient) { }
   // GET
   // /user/profile
   //   - return Signed it user
   // /user/profile/{userID}
   //   - returns user by userid
-  public userProfileUrl: string = 'user/profile';
+  public userProfileUrl = 'user/profile';
   // POST
   // /user/checkout/{userID}
   //   - send {book}
   //   - get back message saying it completed
-  public userCheckoutUrl: string = 'user/checkout';
+  public userCheckoutUrl = 'user/checkout';
 
-    constructor (private http:HttpClient) { }
+    async addUserAddress(locationObject) {
+        //  const config = {
+        //   headers: {
+        //     'Authorization': 'bearer ' + await localStorage.getItem('bToken')
+        //   }
+        // };
+        await Axios.post(this.addressUrl, locationObject);
+    }
 
-  async getUserByID (userID: number) {
+    async getUserAddress(locationObject) {
+      const result = await Axios.get(this.locationUrl);
+      return result.data;
+    }
 
-  }
-  //Check out a user's book to another user.
-  async checkoutBook() {
-    
-  }
-  //Return a book that was checked out
-  async returnCheckoutBook() {
-    //TODO
-  }
+    async getUserProfile() {
+        const config = {
+          headers: {
+            'Authorization': 'bearer ' + await localStorage.getItem('bToken')
+          }
+        };
+        const bodyParameters = {
+          key: 'value'
+        };
+        try {
+          const response = await Axios.get(this.userUrl, config);
+          console.log(response);
+
+        } catch (e) {
+          console.log(e);
+        }
+      }
+
+    // getUser(): Observable<UserInfo[]> {
+    //     return this.http.get<UserInfo[]>(this.userUrl);
+    // }
+
 }
+  // async getUserByID (userID: number) {
+
+  // }
+  // //Check out a user's book to another user.
+  // async checkoutBook() {
+
+  // }
+  // //Return a book that was checked out
+  // async returnCheckoutBook() {
+  //   //TODO
+  // }
+// }

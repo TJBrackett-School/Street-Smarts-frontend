@@ -65,15 +65,17 @@ export class LoginComponent implements OnInit {
         
       try {
         const res = await Axios.post('user/register', {});
-        await Axios.post('user/address',
-          JSON.parse(localStorage.getItem('locationData'))).then(
-          (result) => {
-            console.log(result);
-          });
-        console.log(res);
-      } catch (e) {
-        console.log(e);
-      }
+
+      //   await Axios.post('user/address',
+      //     JSON.parse(localStorage.getItem('locationData'))).then( //try to put config back
+      //     (result) => {
+      //       console.log(result);
+      //     });
+      //   console.log(res);
+      // } catch (e) {
+      //   console.log(e);
+      // }
+
 
         cognitoUser.getUserAttributes(function (err, res) {
           if (err) {
@@ -88,8 +90,10 @@ export class LoginComponent implements OnInit {
           }
         });
         this.router.navigate(['/library']);
-      },
-
+      } catch(e){
+        console.log(e)
+      }
+    },
       onFailure: (err) => {
         alert('authentication error');
         console.log(err);

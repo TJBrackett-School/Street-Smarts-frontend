@@ -1,3 +1,4 @@
+import { UserService } from './../profile/user-services/user.service';
 import { Component, OnInit } from '@angular/core';
 import { CognitoUserPool, CognitoUserAttribute } from 'amazon-cognito-identity-js/dist/amazon-cognito-identity.min';
 import { poolData } from 'src/models/poolData';
@@ -25,10 +26,10 @@ export class RegisterComponent implements OnInit {
   private latitude;
   private longitude;
 
-  private gMapsApi: string = 'https://maps.googleapis.com/maps/api/geocode/json?address=';
+  private gMapsApi = 'https://maps.googleapis.com/maps/api/geocode/json?address=';
   private gMapsKey: string = '&key=' + environment.GOOGLE_MAPS_API_KEY;
 
-  constructor() {}
+  constructor(private UserService) {}
 
 
   ngOnInit() {}
@@ -68,7 +69,7 @@ export class RegisterComponent implements OnInit {
   }
 
 
-  registerUser() {
+  async registerUser() {
     if (this.userPassWord === this.userRepeatPassWord) {
 
       const userPool = new CognitoUserPool(poolData);
@@ -79,20 +80,18 @@ export class RegisterComponent implements OnInit {
       const urlCity: string = this.city.split(' ').join('+') + ',+';
 
       const gMapsUrl = this.gMapsApi + urlAddress + urlCity + this.state + this.gMapsKey;
-      Axios.get(gMapsUrl).then(
-        (results) => {
-          const {lat, lng} = results.data.results[0].geometry.location;
-          this.latitude = lat;
-          this.longitude = lng;
-          localStorage.setItem('locationData', JSON.stringify({
-            lat,
-            lng,
-            city: this.city,
-            state: this.state,
-            address: this.address
-          }))
-        }
-      )
+      const gMapLocations = await Axios.get(gMapsUrl);
+      const {lat, lng} = gMapLocations.data.results[0].geometry.location;
+      this.latitude = lat;
+      this.longitude = lng;
+      const locationObject = {
+        lat,
+        lng,
+        city: this.city,
+        state: this.state,
+        address: this.address
+      };
+      await this.UserService.addUserAddress(locationObject)
 
       const data = [
       {
