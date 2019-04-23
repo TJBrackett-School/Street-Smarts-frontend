@@ -96,6 +96,7 @@ export class LoginComponent implements OnInit {
         //     }
         //   }
         // );
+
         this.router.navigate(['/library']);
 
     },
@@ -104,6 +105,9 @@ export class LoginComponent implements OnInit {
         console.log(err);
       }
     });
+        // Axios.defaults.baseURL = 'https://afu8lhb2z7.execute-api.us-east-1.amazonaws.com/dev/';
+        // Axios.defaults.headers.common['Authorization'] = "bearer " + localStorage.getItem('bToken');
+        // Axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
 
 
