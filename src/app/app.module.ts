@@ -5,7 +5,6 @@ import { MapComponent } from './map/map.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AddBookComponent } from './profile/user-library/add-book/add-book.component';
 import { BookItemComponent } from './profile/user-library/book-item/book-item.component';
-import { BooksComponent } from './profile/user-library/show-books/books.component';
 //Modules
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -39,7 +38,6 @@ Axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded
     ProfileComponent,
     AddBookComponent,
     BookItemComponent,
-    BooksComponent,
     FindBookComponent,
     HeaderComponent,
     TestBookItemComponent,
