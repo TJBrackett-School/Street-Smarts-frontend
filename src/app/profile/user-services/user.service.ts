@@ -8,36 +8,46 @@ const httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
     })
-}
+};
 @Injectable({
     providedIn: 'root'
 })
 
 export class UserService {
-    userUrl: string = 'https://afu8lhb2z7.execute-api.us-east-1.amazonaws.com/dev/user/profile';
+    userUrl = 'https://afu8lhb2z7.execute-api.us-east-1.amazonaws.com/dev/user/profile';
+    addressUrl = 'https://afu8lhb2z7.execute-api.us-east-1.amazonaws.com/dev/user/address';
 
-    constructor (private http:HttpClient) { }
+    constructor (private http: HttpClient) { }
+
+    async addUserAddress(locationObject) {
+         const config = {
+          headers: {
+            'Authorization': 'bearer ' + await localStorage.getItem('bToken')
+          }
+        };
+        await Axios.post(this.addressUrl, locationObject);
+    }
 
     async getUserProfile() {
-        let config = {
+        const config = {
           headers: {
-            'Authorization': "bearer " + await localStorage.getItem('bToken')
+            'Authorization': 'bearer ' + await localStorage.getItem('bToken')
           }
-        }
-        let bodyParameters = {
-          key: "value"
-        }
+        };
+        const bodyParameters = {
+          key: 'value'
+        };
         try {
           const response = await Axios.get(this.userUrl, config);
-          console.log(response)
-    
+          console.log(response);
+
         } catch (e) {
-          console.log(e)
+          console.log(e);
         }
       }
 
-    getUser():Observable<UserInfo[]> {
+    getUser(): Observable<UserInfo[]> {
         return this.http.get<UserInfo[]>(this.userUrl);
-    }   
+    }
 
 }
