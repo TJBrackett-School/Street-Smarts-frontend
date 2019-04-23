@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit {
       Username: this.email,
       Pool: userPool
     };
-
+    
     console.log(authenticationDetails);
     const cognitoUser = new CognitoUser(userData);
     cognitoUser.authenticateUser(authenticationDetails, {
@@ -57,10 +57,16 @@ export class LoginComponent implements OnInit {
        localStorage.setItem('bToken', this.idToken);
         console.log(cognitoUser.getUsername());
         console.log(this.idToken);
+        // let config = {
+        //   headers: {
+        //     'Authorization': "bearer " + await localStorage.getItem('bToken')
+        //   }
+        // }
+        
       try {
         const res = await Axios.post('user/register', {});
         await Axios.post('user/address',
-          JSON.parse(localStorage.getItem('locationData'))).then( //try to put config back
+          JSON.parse(localStorage.getItem('locationData'))).then(
           (result) => {
             console.log(result);
           });

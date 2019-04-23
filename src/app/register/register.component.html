@@ -1,9 +1,11 @@
+<section class="bg">
+<app-header></app-header>
 <div class="container">
 
-  <div class="card bg-light mt-3">
+  <div class="card mt-5">
     <article class="card-body mx-auto" style="max-width: 400px;">
-      <h4 class="card-title mt-3 text-center">Create Account</h4>
-      <p class="text-center">Get started with your free account</p>
+      <h4 class="card-title mt-3 text-center text-white">Create Account</h4>
+      <p class="text-center text-white">Get started with your free account</p>
       <form>
         <div class="form-group input-group">
           <input name="" class="form-control" placeholder="User Name" type="text" (change)="onUserNameChange($event)">
@@ -17,7 +19,8 @@
         <div class="form-group input-group">
           <input name="" class="form-control" placeholder="City" type="text" (change)="onCityChange($event)">
         </div> <!-- form-group// -->
-        <div class="form-group input-group">
+        <div class="form-group input-group state-list">
+          <label class="state-label text-white mt-2" for="state"><h5>State</h5></label>
         <select name="state" size="1" (change)="onStateChange($event)">
           <option value="AK">AK</option>
           <option value="AL">AL</option>
@@ -72,7 +75,7 @@
           <option value="WY">WY</option>
         </select>
         </div> <!-- form-group// -->
-        <h5 class="card-title mt-3 text-center">Birthday</h5>
+        <h5 class="card-title mt-3 text-center text-white">Birthday</h5>
         <div class="form-group input-group">
           <input name="" class="form-control" placeholder="Birthday" type="date" (change)="onBirthdayChange($event)">
         </div> <!-- form-group// -->
@@ -87,10 +90,11 @@
         <div class="form-group">
           <button type="button" class="btn btn-primary btn-block" (click)="registerUser()"> Create Account </button>
         </div> <!-- form-group// -->
-        <p class="text-center">Have an account? <a routerLink="/">Log In</a> </p>
+        <p class="text-center text-white">Have an account? <a routerLink="/">Log In</a> </p>
       </form>
     </article>
   </div> <!-- card.// -->
 
 </div>
 <!--container end.//-->
+</section>
