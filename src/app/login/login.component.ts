@@ -57,15 +57,10 @@ export class LoginComponent implements OnInit {
        localStorage.setItem('bToken', this.idToken);
         console.log(cognitoUser.getUsername());
         console.log(this.idToken);
-        const config = {
-          headers: {
-            'Authorization': 'bearer ' + await localStorage.getItem('bToken')
-          }
-        };
       try {
         const res = await Axios.post('user/register', {});
         await Axios.post('user/address',
-          JSON.parse(await localStorage.getItem('locationData')), config).then(
+          JSON.parse(localStorage.getItem('locationData'))).then( //try to put config back
           (result) => {
             console.log(result);
           });
@@ -86,7 +81,7 @@ export class LoginComponent implements OnInit {
             }
           }
         });
-        this.router.navigate(['/profile']);
+        this.router.navigate(['/library']);
       },
 
       onFailure: (err) => {

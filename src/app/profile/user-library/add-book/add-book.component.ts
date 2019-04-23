@@ -10,12 +10,11 @@ export let userBooks: BookInfo[]
   styleUrls: ['./add-book.component.css']
 })
 export class AddBookComponent implements OnInit {  
-  // @Output() getLibrary: EventEmitter<any> = new EventEmitter();
-  // @Input() bookSearch: EventEmitter<any> = new EventEmitter();
+  @Output() newBook: EventEmitter<any> = new EventEmitter();
 
   book: BookSearch = {
     title: '',
-    author: ''
+    authorName: ''
   };
 
   private bookFound: BookInfo;
@@ -25,6 +24,7 @@ export class AddBookComponent implements OnInit {
   async ngOnInit() {
     let res = await this.bookService.getUserLibrary()
     userBooks = res.data
+    localStorage.setItem('userBooks', JSON.stringify(userBooks))
   }
 
   async getBook() {
@@ -33,9 +33,16 @@ export class AddBookComponent implements OnInit {
   }
 
   async addBook() {
-    let result = await this.getBook()
-    this.bookFound = result.data
-    let addBook = await this.bookService.addBookToLibrary(this.bookFound)
-    userBooks = addBook.data
+    try {
+      let result = await this.getBook()
+      this.bookFound = result.data
+      let addBook = await this.bookService.addBookToLibrary(this.bookFound)
+      userBooks = addBook.data
+      console.log("addBook.data", addBook.data)
+      localStorage.setItem('userBooks', userBooks.join(','))
+      alert(`${this.bookFound.title} was added to your library!`)
+    } catch (e) {
+      console.log(e);
+    }
   }
 }

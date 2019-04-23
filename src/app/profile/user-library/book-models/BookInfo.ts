@@ -1,4 +1,5 @@
 export class BookInfo {
+    id:string;
     title:string
     authorName:string
     coverLinkLarge:string
@@ -7,6 +8,7 @@ export class BookInfo {
 }
 
 export class BookSearch {
+    id?:number;
     title?: string;
-    author?: string;
+    authorName?: string;
 }

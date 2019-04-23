@@ -1,5 +1,3 @@
-export class UserInfo {
+export class UserID {
     userID:string;
-    addressID:string;
-    bookID:string;
 }

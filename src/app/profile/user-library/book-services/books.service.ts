@@ -11,14 +11,28 @@ import Axios from 'axios'
   providedIn: 'root'
 })
 export class BookService {
-  //OpenLibrary API
+  // OpenLibrary API
+  // POST
+  // /book/searchapi
+  //   - send {title?: "", author?: "", ISBN}
+  //   - get book
   public openLibraryUrl: string = 'book/searchapi';
-  //Search all books in our API
+  // Search all books in our API
+  // POST
+  // /book/search
+  //   - send {title?: "", author?: "", ISBN}
+  //   - get book
   public bookSearchUrl: string = 'book/search';
-  //User's library API
+  // GET
+  // /user/book
+  // - returns signed in users books
+  // /user/book/{userID}
+  // -returns signed in users books by userID
+  // DEL
+  // /user/book/{bookID}
+  //   - deletes user books & returns list of users books after deletion
   public userBookUrl: string = 'user/book';
-  //Map search
-  public mapUrl: string = 'user/surrounding';
+
 
   constructor() {}
 
@@ -26,7 +40,7 @@ export class BookService {
   async searchOL(book: BookSearch) {
     const result = await Axios.post(this.openLibraryUrl, {
       title: book.title,
-      author: book.author
+      authorName: book.authorName
     })
     return result
   }
@@ -38,8 +52,18 @@ export class BookService {
   }
 
   //Search our API library for a book
-  async searchLibrary() {
-    const result = await Axios.post(this.bookSearchUrl)
+  async searchLibrary(book: BookSearch) {
+    let result;
+    // const result = await Axios.post(this.bookSearchUrl)
+    if (book.title) {
+      result = await Axios.post(this.bookSearchUrl, {
+        title: book.title
+      })
+    } else {
+      result = await Axios.post(this.bookSearchUrl, {
+        authorName: book.authorName
+      })
+    }
     return result
   }
   //Pull all books in user's library
@@ -48,20 +72,9 @@ export class BookService {
     return result
   }
 
-  //Find user's nearby that have book
-  async searchMapForBook() {
-    //TODO
-  }
   //Remove book from library
-  async deleteBook() {
-    //TODO
-  }
-  //Check out a user's book to another user.
-  async checkoutBook() {
-    //TODO
-  }
-  //Return a book that was checked out
-  async returnCheckoutBook() {
-    //TODO
+  async deleteBook(book: BookInfo) {
+    const result = await Axios.delete(`${this.userBookUrl}/${book.id}`)
+    return result
   }
 }

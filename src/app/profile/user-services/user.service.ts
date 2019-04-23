@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { UserInfo } from '../user-models/UserInfo';
 import Axios from 'axios';
 
 const httpOptions = {
@@ -18,6 +16,17 @@ export class UserService {
     addressUrl = 'https://afu8lhb2z7.execute-api.us-east-1.amazonaws.com/dev/user/address';
 
     constructor (private http: HttpClient) { }
+  // GET
+  // /user/profile
+  //   - return Signed it user
+  // /user/profile/{userID}
+  //   - returns user by userid
+  public userProfileUrl = 'user/profile';
+  // POST
+  // /user/checkout/{userID}
+  //   - send {book}
+  //   - get back message saying it completed
+  public userCheckoutUrl = 'user/checkout';
 
     async addUserAddress(locationObject) {
          const config = {
@@ -46,8 +55,20 @@ export class UserService {
         }
       }
 
-    getUser(): Observable<UserInfo[]> {
-        return this.http.get<UserInfo[]>(this.userUrl);
-    }
+    // getUser(): Observable<UserInfo[]> {
+    //     return this.http.get<UserInfo[]>(this.userUrl);
+    // }
 
 }
+  // async getUserByID (userID: number) {
+
+  // }
+  // //Check out a user's book to another user.
+  // async checkoutBook() {
+
+  // }
+  // //Return a book that was checked out
+  // async returnCheckoutBook() {
+  //   //TODO
+  // }
+// }

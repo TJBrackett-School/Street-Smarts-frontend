@@ -1,6 +1,8 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { BookService } from './user-library/book-services/books.service';
 import Axios from 'axios';
-
+import { BookInfo } from './user-library/book-models/BookInfo';
+import { userBooks } from './user-library/add-book/add-book.component';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -8,34 +10,23 @@ import Axios from 'axios';
 })
 export class ProfileComponent implements OnInit {
   @Output() addBook: EventEmitter<any> = new EventEmitter();
-
+  userBooks: BookInfo[]
   title: string;
 
-  constructor() { }
+  constructor(private bookService: BookService) { }
 
-  ngOnInit() {
+  async ngOnInit() {
+    let res = await this.bookService.getUserLibrary()
+    this.userBooks = res.data
   }
-  onSubmit() {
-    const book = {
-      title: this.title,
-      completed: false
-    };
-    this.addBook.emit(book);
-  }
-
-  async getUserProfile() {
-    const config = {
-      headers: {
-        'Authorization': 'bearer ' + await localStorage.getItem('bToken')
-      }
-    };
-   try {
-      const {data} = await Axios.get('https://afu8lhb2z7.execute-api.us-east-1.amazonaws.com/dev/user/profile', config);
-      console.log('this is the data', data);
-
-    } catch (e) {
-      console.log(e);
-    }
+  async onSubmit() {
+    let res = await this.bookService.getUserLibrary()
+    this.userBooks = res.data
   }
 
+  async deleteBook(book: BookInfo) {
+    console.log(book.id)
+    await this.bookService.deleteBook(book)
+    this.userBooks = this.userBooks.filter(b => b.id !== book.id)
+  }
 }

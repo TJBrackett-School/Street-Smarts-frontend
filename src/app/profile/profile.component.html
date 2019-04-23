@@ -1,18 +1,17 @@
-<form class="form" (ngSubmit)="onSubmit()">
-    <div>
-    <input type="text" name="title" [(ngModel)]="title" placeholder="Add Book..." (change)="onSearchChange($event)">
-    <input type="text" name="author" [(ngModel)]="author" placeholder="Add Author..." (change)="onSearchChange($event)">
-    </div>
-    <p>
-      --- or ---
-    </p>
-    <div>
-        <input type="text" name="isbn" [(ngModel)]="isbn" placeholder="Add ISBN..." (change)="onSearchChange($event)">
-    </div>
-    <div>
-    <input type="submit" value="Submit" class="btn">
-    </div>
-    <div>
-        <!--for adding the book items-->
-    </div>
-  </form>
+<section class="bg">
+<app-add-book (newBook)="newBook($event)"></app-add-book>
+<section>
+        <section class="container">
+                <div class="row">
+                  <div class="col-lg-11 col-md-12 mb-4">
+<app-book-item 
+*ngFor="let book of userBooks" 
+[book]="book"
+(deleteBook)="deleteBook($event)"
+>
+</app-book-item>
+</div>
+</div>
+        </section>
+</section>
+</section>

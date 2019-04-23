@@ -1,10 +1,8 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { BookInfo } from '../book-models/BookInfo';
-import { UserInfo } from '../../user-models/UserInfo'
 import { BookService } from '../book-services/books.service';
 import { UserService } from '../../user-services/user.service';
 import Axios from 'axios';
-import { config } from 'rxjs';
 
 @Component({
   selector: 'app-books',
