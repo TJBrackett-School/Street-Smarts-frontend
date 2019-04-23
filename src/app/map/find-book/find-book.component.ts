@@ -4,6 +4,7 @@ import { MapSearch, LatAndLng } from '../map-models/MapInfo';
 import { MapService } from '../map-services/map.service';
 import { BookService } from 'src/app/profile/user-library/book-services/books.service';
 import { UserService } from 'src/app/profile/user-services/user.service';
+import { UserID } from 'src/app/profile/user-models/UserInfo';
 
 @Component({
   selector: 'app-find-book',
@@ -19,7 +20,7 @@ export class FindBookComponent implements OnInit {
   userBooks: BookSearch[]
   searchOptions: string
   userSearch: string
-
+  userID: UserID[]
   constructor(
     private bookService:BookService,
     private mapService:MapService,
@@ -37,18 +38,8 @@ export class FindBookComponent implements OnInit {
       this.book.authorName = this.userSearch
       this.book.title = ''
     }
-    console.log(this.book)
     let books = await this.bookService.searchLibrary(this.book);
-    console.log(books)
     return books
-  }
-
-  async getUsers() {
-    let userIDs = await this.getLocations()
-    console.log(userIDs)
-    let results = await this.mapService.getUserLocation(userIDs)
-    console.log(results)
-
   }
 
   async getLocations() {
@@ -58,7 +49,14 @@ export class FindBookComponent implements OnInit {
       this.radius, 
       this.userBooks
     )
-    console.log(users)
+    console.log(users.data.users[0])
     return users.data.users[0]
+  }
+
+  async getUsers() {
+    this.userID = await this.getLocations()
+    console.log(this.userID)
+    let results = await this.mapService.getUserLocation(this.userID)
+    console.log(results)
   }
 }

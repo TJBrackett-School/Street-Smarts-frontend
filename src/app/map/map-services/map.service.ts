@@ -31,7 +31,7 @@ export class MapService {
     })
     return results
   }
-  async getUserLocation(userID: number) {
+  async getUserLocation(userID: number[]) {
     const results = await Axios.get(this.userLocationUrl + `/${userID}`)
     return results
   }
