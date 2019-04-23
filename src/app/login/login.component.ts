@@ -82,8 +82,10 @@ export class LoginComponent implements OnInit {
           }
         });
         this.router.navigate(['/library']);
-      },
-
+      } catch(e){
+        console.log(e)
+      }
+    },
       onFailure: (err) => {
         alert('authentication error');
         console.log(err);
