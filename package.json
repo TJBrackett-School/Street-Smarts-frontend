@@ -20,7 +20,7 @@
     "@angular/platform-browser": "^7.2.13",
     "@angular/platform-browser-dynamic": "^7.2.13",
     "@angular/router": "^7.2.13",
-    "@ng-bootstrap/ng-bootstrap": "^2.2.2",
+    "@ng-bootstrap/ng-bootstrap": "^4.1.1",
     "@ng-bootstrap/schematics": "^2.0.0-alpha.1",
     "amazon-cognito-identity-js": "^3.0.11",
     "aws-sdk": "^2.441.0",
