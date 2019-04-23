@@ -59,15 +59,15 @@ export class LoginComponent implements OnInit {
         console.log(this.idToken);
       try {
         const res = await Axios.post('user/register', {});
-        await Axios.post('user/address',
-          JSON.parse(localStorage.getItem('locationData'))).then( //try to put config back
-          (result) => {
-            console.log(result);
-          });
-        console.log(res);
-      } catch (e) {
-        console.log(e);
-      }
+      //   await Axios.post('user/address',
+      //     JSON.parse(localStorage.getItem('locationData'))).then( //try to put config back
+      //     (result) => {
+      //       console.log(result);
+      //     });
+      //   console.log(res);
+      // } catch (e) {
+      //   console.log(e);
+      // }
 
         cognitoUser.getUserAttributes(function (err, res) {
           if (err) {

@@ -14,6 +14,7 @@ const httpOptions = {
 export class UserService {
     userUrl = 'https://afu8lhb2z7.execute-api.us-east-1.amazonaws.com/dev/user/profile';
     addressUrl = 'https://afu8lhb2z7.execute-api.us-east-1.amazonaws.com/dev/user/address';
+    locationUrl = 'https://afu8lhb2z7.execute-api.us-east-1.amazonaws.com/dev/user/location';
 
     constructor (private http: HttpClient) { }
   // GET
@@ -29,12 +30,17 @@ export class UserService {
   public userCheckoutUrl = 'user/checkout';
 
     async addUserAddress(locationObject) {
-         const config = {
-          headers: {
-            'Authorization': 'bearer ' + await localStorage.getItem('bToken')
-          }
-        };
+        //  const config = {
+        //   headers: {
+        //     'Authorization': 'bearer ' + await localStorage.getItem('bToken')
+        //   }
+        // };
         await Axios.post(this.addressUrl, locationObject);
+    }
+
+    async getUserAddress(locationObject) {
+      const result = await Axios.get(this.locationUrl);
+      return result.data;
     }
 
     async getUserProfile() {
