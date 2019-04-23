@@ -1,3 +1,4 @@
+import { UserService } from 'src/app/profile/user-services/user.service';
 import { environment } from './../../environments/environment';
 import { Component, OnInit } from '@angular/core';
 import {
@@ -21,7 +22,7 @@ export class LoginComponent implements OnInit {
   private accessToken;
   private idToken;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private UserService:UserService) { }
 
   ngOnInit() {
   }
@@ -47,7 +48,7 @@ export class LoginComponent implements OnInit {
       Username: this.email,
       Pool: userPool
     };
-    
+
     console.log(authenticationDetails);
     const cognitoUser = new CognitoUser(userData);
     cognitoUser.authenticateUser(authenticationDetails, {
@@ -62,37 +63,41 @@ export class LoginComponent implements OnInit {
         //     'Authorization': "bearer " + await localStorage.getItem('bToken')
         //   }
         // }
-        
+
       try {
         const res = await Axios.post('user/register', {});
-
-      //   await Axios.post('user/address',
-      //     JSON.parse(localStorage.getItem('locationData'))).then( //try to put config back
-      //     (result) => {
-      //       console.log(result);
-      //     });
-      //   console.log(res);
-      // } catch (e) {
-      //   console.log(e);
-      // }
-
-
-        cognitoUser.getUserAttributes(function (err, res) {
-          if (err) {
-            alert(err);
-            return;
-          }
-          for (let i = 0; i < res.length; i++) {
-            if (res[i].getName() === 'email') {
-              console.log(res[i]);
-              break;
-            }
-          }
-        });
-        this.router.navigate(['/library']);
-      } catch(e){
-        console.log(e)
+        const locationObject = JSON.parse(localStorage.getItem('locationData'));
+        await this.UserService.addUserAddress(locationObject)
+        //   await Axios.post('user/address',
+        //     JSON.parse(localStorage.getItem('locationData'))).then( //try to put config back
+        //     (result) => {
+        //       console.log(result);
+        //     });
+        //   console.log(res);
+        // } catch (e) {
+        //   console.log(e);
+        // }
+      } catch (e) {
+        console.log(e);
       }
+        // cognitoUser.getUserAttributes(function (err, res) {
+        //   if (err) {
+        //     alert(err);
+        //     return;
+        //   }
+        //   for (let i = 0; i < res.length; i++) {
+        //     if(res[i].getName() == 'address') {
+        //       try {
+
+        //       } catch (e) {
+        //         console.log(e)
+        //       }
+        //     }
+        //     }
+        //   }
+        // );
+        this.router.navigate(['/library']);
+
     },
       onFailure: (err) => {
         alert('authentication error');
