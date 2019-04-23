@@ -29,6 +29,7 @@ import { HomePageComponent } from './home-page/home-page.component';
 Axios.defaults.baseURL = 'https://afu8lhb2z7.execute-api.us-east-1.amazonaws.com/dev/';
 Axios.defaults.headers.common['Authorization'] = "bearer " + localStorage.getItem('bToken');
 Axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+
 @NgModule({
   declarations: [
     AppComponent,

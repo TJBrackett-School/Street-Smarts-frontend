@@ -17,10 +17,12 @@ export class ProfileComponent implements OnInit {
 
   async ngOnInit() {
     let res = await this.bookService.getUserLibrary()
+    console.log(res);
     this.userBooks = res.data
   }
   async onSubmit() {
     let res = await this.bookService.getUserLibrary()
+    console.log(res);
     this.userBooks = res.data
   }
 
