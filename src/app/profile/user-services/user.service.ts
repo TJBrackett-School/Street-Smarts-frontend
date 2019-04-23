@@ -2,11 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import Axios from 'axios';
 
-const httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json'
-    })
-};
 @Injectable({
     providedIn: 'root'
 })
@@ -61,9 +56,6 @@ export class UserService {
         }
       }
 
-    // getUser(): Observable<UserInfo[]> {
-    //     return this.http.get<UserInfo[]>(this.userUrl);
-    // }
 
 }
   // async getUserByID (userID: number) {

@@ -1,5 +1,5 @@
 import { UserService } from './../profile/user-services/user.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Injectable } from '@angular/core';
 import { CognitoUserPool, CognitoUserAttribute } from 'amazon-cognito-identity-js/dist/amazon-cognito-identity.min';
 import { poolData } from 'src/models/poolData';
 import { CognitoUser } from 'amazon-cognito-identity-js';

@@ -1,10 +1,5 @@
-import {
-  Injectable
-} from '@angular/core';
-import {
-  BookInfo,
-  BookSearch
-} from '../book-models/BookInfo';
+import { Injectable } from '@angular/core';
+import { BookInfo, BookSearch } from '../book-models/BookInfo';
 import Axios from 'axios'
 
 @Injectable({

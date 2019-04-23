@@ -1,3 +1,29 @@
+.bg{
+  position: fixed; 
+  top: 0; 
+  left: 0;
+  min-width: 100%;
+  min-height: 100%;
+  background: url(../../assets/images/register.jpg) no-repeat center;
+  background-size: 100% 100%;
+  background-position: top center;
+}
+.container{
+  background-color:  #00000000;
+}
+.card{
+  background-color:  #00000000;
+}
+.card-body{
+  background-color:  #000000bd;
+}
+.state-list{
+  margin-left: 50px
+}
+.state-label{
+  margin-right: 15px
+}
+
 .divider-text {
   position: relative;
   text-align: center;
