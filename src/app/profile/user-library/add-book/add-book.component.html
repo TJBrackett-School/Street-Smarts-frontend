@@ -1,4 +1,4 @@
-<form class="form" (ngSubmit)="addBook()">
+<!-- <form class="form" (ngSubmit)="addBook()">
   <div>
     <input type="text" name="title" [(ngModel)]="book.title" placeholder="Add Book..." (input)=getBook()>
     <input type="text" name="author" [(ngModel)]="book.author" placeholder="Add Author...">
@@ -6,4 +6,27 @@
   <div>
     <input type="submit" value="Submit" class="btn">
   </div>
-</form>
+</form> -->
+
+<div class="container">
+    <!--row-->
+    <div class="row">
+        <!--card-->
+        <div class="card mt-3 mb-3">
+          <!--card body-->
+          <div class="card-body"></div>
+            <!--card title-->
+            <form (ngSubmit)="addBook()">
+              <!--Start form row-->
+              <div class="form-row">
+                <div class="form-group col-lg-6 col-md-6 m-4">
+                  <label class="form-group col-lg-2 col-md-1 m-2 text-white text-center" for="title"><b>Title</b></label>
+                  <input class="form-control form-control-lg" name="title" [(ngModel)]="book.title" placeholder="Title">
+                </div>
+                <div class="form-group col-lg-6 col-md-6 m-4">
+                  <label class="form-group col-lg-2 col-md-1 m-2 text-white text-center" for="Author"><b>Author</b></label>
+                  <input class="form-control form-control-lg" name="author" [(ngModel)]="book.author" placeholder="Author">
+                </div>
+                <div class="form-group col-lg-6 col-md-6 m-4">
+                <button type="submit" class="btn btn-primary btn-lg mt-3 float-left clearfix m-3"><h5>Search</h5></button>
+                </div>

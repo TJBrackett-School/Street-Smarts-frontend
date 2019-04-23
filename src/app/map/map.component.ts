@@ -1,4 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  EventEmitter,
+  Output,
+  Input
+} from '@angular/core';
+import { userLocation } from './find-book/find-book.component';
+import { LatAndLng } from './map-models/MapInfo';
+
+
 
 @Component({
   selector: 'app-map',
@@ -6,23 +16,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./map.component.scss']
 })
 export class MapComponent implements OnInit {
-
+  public name: any;
   public origin: any;
   public destination: any;
   public lat;
   public lng;
   public selectedMarker;
-  public markers = [
-    // These are all just random coordinates from https://www.random.org/geographic-coordinates/
-    { lat: 22.33159, lng: 105.63233, alpha: 1 },
-    { lat: 7.92658, lng: -12.05228, alpha: 1 },
-    { lat: 48.75606, lng: -118.859, alpha: 1 },
-    { lat: 5.19334, lng: -67.03352, alpha: 1 },
-    { lat: 12.09407, lng: 26.31618, alpha: 1 },
-    { lat: 47.92393, lng: 78.58339, alpha: 1 }
-  ];
+  public location: LatAndLng[]
+  public markers = []
 
-  constructor() { }
+  // trackMarkers(index: number, location: any) {
+  //   return location ? location.lat : null
+  // }
+
+  constructor() {}
 
   ngOnInit() {
     const locationData = JSON.parse(localStorage.getItem('locationData'))
@@ -30,24 +37,38 @@ export class MapComponent implements OnInit {
     this.lng = locationData.lng
     this.addMarker(this.lat, this.lng)
   }
-  
-    addMarker(lat: number, lng: number) {
-      this.markers.push({ lat, lng, alpha: 1});
-    }
-    // Related to the rectangle property in the html
-    // max(coordType: 'lat' | 'lng'): number {
-    //   return Math.max(...this.markers.map(marker => marker[coordType]));
-    // }
-  
-    // min(coordType: 'lat' | 'lng'): number {
-    //   return Math.min(...this.markers.map(marker => marker[coordType]));
-    // }
-  
-    selectMarker(event) {
-      this.selectedMarker = {
-        lat: event.latitude,
-        lng: event.longitude
-      };
-    }
-}
 
+  addMarker(lat: number, lng: number) {
+    this.markers.push({
+      lat: lat,
+      lng: lng,
+      alpha: 1
+    });
+  }
+  // Related to the rectangle property in the html
+  // max(coordType: 'lat' | 'lng'): number {
+  //   return Math.max(...this.markers.map(marker => marker[coordType]));
+  // }
+
+  // min(coordType: 'lat' | 'lng'): number {
+  //   return Math.min(...this.markers.map(marker => marker[coordType]));
+  // }
+
+  selectMarker(event) {
+    this.selectedMarker = {
+      lat: event.latitude,
+      lng: event.longitude
+    }
+    console.log(this.markers)
+    this.markers = []
+    this.addMarker(userLocation[0].lat, userLocation[0].lng)
+    console.log(this.markers)
+    // console.log(userLocation[0].lat)
+    // console.log(userLocation[0].lng)
+  }
+
+  async populateMap() {
+    this.location = userLocation
+  }
+
+}

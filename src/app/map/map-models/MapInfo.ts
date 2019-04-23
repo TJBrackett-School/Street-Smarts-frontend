@@ -1,6 +1,7 @@
 export class LatAndLng {
-    lat: string;
-    lng: string;
+    lat: number;
+    lng: number;
+    alpha: 1;
 }
 
 export class MapSearch {

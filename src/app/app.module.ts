@@ -25,6 +25,7 @@ import { MapService } from './map/map-services/map.service';
 import { environment } from '../environments/environment';
 import Axios from 'axios';
 import { TestBookItemComponent } from './test-book-item/test-book-item.component';
+import { HomePageComponent } from './home-page/home-page.component';
 
 Axios.defaults.baseURL = 'https://afu8lhb2z7.execute-api.us-east-1.amazonaws.com/dev/';
 Axios.defaults.headers.common['Authorization'] = "bearer " + localStorage.getItem('bToken');
@@ -41,7 +42,8 @@ Axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded
     BooksComponent,
     FindBookComponent,
     HeaderComponent,
-    TestBookItemComponent
+    TestBookItemComponent,
+    HomePageComponent
   ],
   imports: [
     BrowserModule,

@@ -28,6 +28,9 @@ export class BookService {
   // - returns signed in users books
   // /user/book/{userID}
   // -returns signed in users books by userID
+  // DEL
+  // /user/book/{bookID}
+  //   - deletes user books & returns list of users books after deletion
   public userBookUrl: string = 'user/book';
 
 
@@ -70,7 +73,8 @@ export class BookService {
   }
 
   //Remove book from library
-  async deleteBook() {
-    //TODO
+  async deleteBook(book: BookInfo) {
+    const result = await Axios.delete(`${this.userBookUrl}/${book.id}`)
+    return result
   }
 }

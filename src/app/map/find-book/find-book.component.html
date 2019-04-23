@@ -1,3 +1,4 @@
+<div>
 <form class="form" (ngSubmit)="getUsers()">
     <select name="searchOptions" [(ngModel)]="searchOptions" size="1">
         <option value="title">Title</option>
@@ -7,5 +8,6 @@
     <br>
     <label for="radius"></label>
     <input type="text" name="radius" [(ngModel)]="radius" placeholder="Radius">
-    <input type="submit" value="Search" class="btn">
+    <input type="submit" value="Search" class="btn" (click)="getUsers()">
 </form>
+</div>

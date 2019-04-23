@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { UserInfo } from '../user-models/UserInfo';
 import Axios from 'axios';
 
 const httpOptions = {

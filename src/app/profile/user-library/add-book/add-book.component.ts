@@ -10,7 +10,7 @@ export let userBooks: BookInfo[]
   styleUrls: ['./add-book.component.css']
 })
 export class AddBookComponent implements OnInit {  
-  @Output() getLibrary: EventEmitter<any> = new EventEmitter();
+  @Output() newBook: EventEmitter<any> = new EventEmitter();
 
   book: BookSearch = {
     title: '',
@@ -25,7 +25,6 @@ export class AddBookComponent implements OnInit {
     let res = await this.bookService.getUserLibrary()
     userBooks = res.data
     localStorage.setItem('userBooks', JSON.stringify(userBooks))
-    console.log(`AddBookComponent Init`)
   }
 
   async getBook() {
@@ -39,7 +38,7 @@ export class AddBookComponent implements OnInit {
       this.bookFound = result.data
       let addBook = await this.bookService.addBookToLibrary(this.bookFound)
       userBooks = addBook.data
-      console.log(userBooks)
+      console.log("addBook.data", addBook.data)
       localStorage.setItem('userBooks', userBooks.join(','))
       alert(`${this.bookFound.title} was added to your library!`)
     } catch (e) {

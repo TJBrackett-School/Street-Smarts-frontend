@@ -1,6 +1,8 @@
 <div>
-<app-find-book></app-find-book>
+<app-find-book [parentData]="name" ></app-find-book>
 <agm-map 
+
+    (onSearch)="locations"
     [latitude]="lat"
     [longitude]="lng" 
     [zoom]="18" 
@@ -11,7 +13,6 @@
         *ngFor="let marker of markers"
         [latitude]="marker.lat"
         [longitude]="marker.lng"
-        [opacity]="marker.alpha"
         (markerClick)="selectMarker($event)"
     >
 
@@ -28,6 +29,7 @@
 
 <p *ngIf="selectedMarker">
     Lat: {{ selectedMarker.lat }} Lng: {{ selectedMarker.lng }}
+    
 </p>
 
 </div>
