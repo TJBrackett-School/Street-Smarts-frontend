@@ -49,7 +49,7 @@ Axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded
     HttpClientModule,
     FormsModule,
     AgmCoreModule.forRoot({
-      apiKey: environment.GOOGLE_MAPS_API_KEY
+      apiKey: ""
     })
   ],
   exports: [
